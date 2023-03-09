@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flutter Playground</string>
+    <string name="facebook_app_id">3418315098405911</string>
+    <string name="fb_login_protocol_scheme">fb3418315098405911</string>
+    <string name="facebook_client_token">b18432023c965ba829cc896758bc9cda</string>
+</resources>
