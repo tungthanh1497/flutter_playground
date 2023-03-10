@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_playground/firebase_options.dart';
 
 void main() async {
@@ -67,6 +69,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _signInFacebook(BuildContext context) async {
+    try {
+      await FacebookAuth.instance.logOut();
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+      OAuthCredential oAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      print('success login');
+    } on FirebaseAuthException catch (e) {
+      print('Fail login: ' + e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -112,9 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          _signInFacebook(context);
+        },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.facebook),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
